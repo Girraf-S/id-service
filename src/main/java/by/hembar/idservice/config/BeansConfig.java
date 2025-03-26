@@ -5,6 +5,8 @@ import by.hembar.idservice.helper.Properties;
 import by.hembar.idservice.repository.SecurityOptionsRepo;
 import by.hembar.idservice.repository.UserRepository;
 import by.hembar.idservice.service.UserDetailsServiceImpl;
+import by.hembar.idservice.session.SessionStorage;
+import by.hembar.idservice.session.SessionStorageMap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +55,11 @@ public class BeansConfig {
             return securityOptionsList.get(0);
         }
         return null;
+    }
+
+    @Bean
+    public SessionStorage sessionStorage() {
+        return SessionStorageMap.getInstance();
     }
 
     @Bean

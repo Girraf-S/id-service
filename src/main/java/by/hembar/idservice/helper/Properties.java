@@ -6,7 +6,7 @@ public class Properties {
 
 
 
-    protected Properties(String host, Integer port, String idServiceHost, Integer idServicePort, String chatServiceHost, Integer chatServicePort, String newsServiceHost, Integer newsServicePort, String searchServiceHost, Integer searchServicePort, String storageServiceHost, Integer storageServicePort, String secretKey, Long sessionLifeTime, Long jwtLifeTime, Long userTimeInBlock, String adminKey, List<Long> adminIdList) {
+    protected Properties(String host, Integer port, String idServiceHost, Integer idServicePort, String chatServiceHost, Integer chatServicePort, String newsServiceHost, Integer newsServicePort, String searchServiceHost, Integer searchServicePort, String storageServiceHost, Integer storageServicePort, String secretKey, Long sessionLifeTime, Long jwtLifeTime, Long userTimeInBlock, String adminKey, List<Long> adminIdList, Integer maxExtendedSessionTimes) {
         HOST = host;
         PORT = port;
         ID_SERVICE_HOST = idServiceHost;
@@ -25,6 +25,7 @@ public class Properties {
         USER_TIME_IN_BLOCK = userTimeInBlock;
         ADMIN_KEY = adminKey;
         ADMIN_ID_LIST = adminIdList;
+        MAX_EXTENDED_SESSION_TIMES = maxExtendedSessionTimes;
     }
 
     private static final class Helper {
@@ -63,5 +64,6 @@ public class Properties {
     public final Long USER_TIME_IN_BLOCK;
     public final String ADMIN_KEY;
     public final List<Long> ADMIN_ID_LIST;
+    public final Integer MAX_EXTENDED_SESSION_TIMES;
 
 }

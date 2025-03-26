@@ -1,0 +1,13 @@
+package by.hembar.idservice.util;
+
+public enum Message {
+    AUTH_NOT_ACCEPTED,
+    INTERNAL_SERVER_ERROR,
+    TEMPORAL_NOT_ACCEPTABLE,
+    USER_IS_BLOCKED,
+    TOKEN_VALID,
+    TOKEN_EXPIRED,
+    TOKEN_INVALID,
+    TOKEN_INVALID_USERNAME,
+    TOKEN_UNDEFINED
+}

@@ -1,7 +1,7 @@
 package by.hembar.idservice.exception;
 
+import by.hembar.idservice.model.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solbeg.nuserservice.model.ErrorResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

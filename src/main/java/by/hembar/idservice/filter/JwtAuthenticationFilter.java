@@ -2,6 +2,9 @@ package by.hembar.idservice.filter;
 
 import by.hembar.idservice.exception.AppException;
 import by.hembar.idservice.service.JwtService;
+import by.hembar.idservice.session.Session;
+import by.hembar.idservice.session.SessionStorage;
+import by.hembar.idservice.util.Message;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -30,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     private final UserDetailsService userDetailsService;
+    private final SessionStorage sessionStorage;
 
     @Value("${jwt.bearer}")
     private String bearer;
@@ -66,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Claims claims = Jwts.claims().add(jwtService.extractClaims(jwt))
                 .add("jwt", jwt)
                 .build();
-        if (jwtService.isTokenValid(jwt, userDetails)) {
+        if (isTokenValid(jwt, userDetails.getUsername())) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     claims.getSubject(),
                     null,
@@ -79,4 +83,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
+    private boolean isTokenValid(String jwt, String username) {
+        if(!jwtService.isTokenValid(jwt, username))
+            throw new AppException(HttpStatus.BAD_REQUEST, Message.TOKEN_INVALID_USERNAME);
+        if(jwtService.isTokenExpired(jwt))
+            throw new AppException(HttpStatus.BAD_REQUEST, Message.TOKEN_EXPIRED);
+
+        Session session = sessionStorage.getSession(jwt);
+        if(session == null)
+            throw new AppException(HttpStatus.BAD_REQUEST, Message.TOKEN_UNDEFINED);
+        //todo Возможно добавить проверку на соответствие предоставляемого токена и токена в хранилище
+
+        return true;
+    }
 }

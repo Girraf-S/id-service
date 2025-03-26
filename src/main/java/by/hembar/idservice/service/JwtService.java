@@ -1,10 +1,12 @@
 package by.hembar.idservice.service;
 
 import by.hembar.idservice.entity.User;
+import by.hembar.idservice.exception.AppException;
 import by.hembar.idservice.helper.Properties;
 import by.hembar.idservice.model.DefaultResponse;
-import by.hembar.idservice.model.Message;
+import by.hembar.idservice.util.Message;
 import by.hembar.idservice.model.TokenResponse;
+import by.hembar.idservice.session.SessionStorage;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -13,6 +15,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +27,7 @@ import java.util.*;
 public class JwtService {
 
     private final SecurityProperties defaultSecurityOptions;
+    private final SessionStorage sessionStorage;
 
     @Value("${jwt.secret-key}")
     private String jwtSecret;
@@ -32,8 +36,9 @@ public class JwtService {
     private Long jwtLifeTime;
 
     @Autowired
-    public JwtService(SecurityProperties defaultSecurityOptions) {
+    public JwtService(SecurityProperties defaultSecurityOptions, SessionStorage sessionStorage) {
         this.defaultSecurityOptions = defaultSecurityOptions;
+        this.sessionStorage = sessionStorage;
     }
 
     @PostConstruct
@@ -84,9 +89,19 @@ public class JwtService {
         DecodedJWT decodedJWT = decodeJWT(token);
         return decodedJWT.getSubject();
     }
+//
+//    public boolean tokenExist(String token){
+//        return sessionStorage.getSession(token) == null? false :
+//                sessionStorage.sessionExpired(token).equals(SessionResponse.OK)? true
+//                :;
+//    }
+
     public boolean isTokenValid(String token, UserDetails userDetails){
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return username.equals(userDetails.getUsername());
+    }
+    public boolean isTokenValid(String token, String username){
+        return extractUsername(token).equals(username);
     }
 
     private DecodedJWT decodeJWT(String token) {
@@ -94,10 +109,10 @@ public class JwtService {
                 .require(Algorithm.HMAC256(jwtSecret))
                 .build();
         return Optional.ofNullable(verifier.verify(token))
-                .orElseThrow(() -> new RuntimeException("Invalid token " + token));
+                .orElseThrow(() -> new AppException("Invalid token " + token, HttpStatus.BAD_REQUEST, Message.TOKEN_INVALID));
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 

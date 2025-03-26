@@ -45,7 +45,9 @@ public class PropertiesBean extends Properties {
                              @Value("${user.admin.key:")
                              String adminKey,
                              @Value("${user.admin.id-list:")
-                             String adminIdList
+                             String adminIdList,
+                             @Value("${session.extended.max:1")
+                             Integer maxExtendedSessionTimes
     ) {
         super(host, port,
                 idServiceHost, idServicePort,
@@ -55,7 +57,8 @@ public class PropertiesBean extends Properties {
                 storageServiceHost, storageServicePort,
                 secretKey, sessionLifeTime, jwtLifeTime, userBlockTime,
                 adminKey,
-                Arrays.stream(adminIdList.split(",")).map(id -> Long.parseLong(id.trim())).toList()
+                Arrays.stream(adminIdList.split(",")).map(id -> Long.parseLong(id.trim())).toList(),
+                maxExtendedSessionTimes
         );
     }
 
