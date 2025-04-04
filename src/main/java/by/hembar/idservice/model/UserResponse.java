@@ -1,6 +1,6 @@
 package by.hembar.idservice.model;
 
-import com.solbeg.nuserservice.entity.Role;
+//import com.solbeg.nuserservice.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +17,6 @@ public class UserResponse {
     private String username;
     private String firstName;
     private String lastName;
-    private Role role;
-    private Set<String> authorities;
     private boolean isActive;
     private boolean isEmailVerified;
 }

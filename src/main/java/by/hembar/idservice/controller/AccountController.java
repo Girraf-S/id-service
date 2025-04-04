@@ -1,7 +1,8 @@
 package by.hembar.idservice.controller;
 
-import com.solbeg.nuserservice.model.UserResponse;
-import com.solbeg.nuserservice.service.AccountService;
+import by.hembar.idservice.model.DefaultResponse;
+import by.hembar.idservice.model.UserResponse;
+import by.hembar.idservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,12 @@ public class AccountController {
     }
 
     @GetMapping("/verify-mail")
-    public void sendActivationCode(){
-        accountService.sendActivationCode();
+    public DefaultResponse sendActivationCode(){
+        return accountService.sendActivationCode();
     }
 
     @PutMapping("/verify-mail/{code}")
-    public void verifyMail(@PathVariable String code){
-        accountService.verifyMail(code);
+    public DefaultResponse verifyMail(@PathVariable String code){
+        return accountService.verifyMail(code);
     }
 }

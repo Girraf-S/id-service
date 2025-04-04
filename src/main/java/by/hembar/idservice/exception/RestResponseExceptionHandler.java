@@ -1,7 +1,7 @@
 package by.hembar.idservice.exception;
 
+import by.hembar.idservice.model.ErrorResponse;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.solbeg.nuserservice.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

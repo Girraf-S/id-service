@@ -1,12 +1,13 @@
 package by.hembar.idservice.service;
 
-import com.solbeg.nuserservice.entity.User;
-import com.solbeg.nuserservice.entity.UserArchive;
-import com.solbeg.nuserservice.exception.AppException;
-import com.solbeg.nuserservice.mapper.UserMapper;
-import com.solbeg.nuserservice.model.UserArchiveResponse;
-import com.solbeg.nuserservice.repository.UserArchiveRepository;
-import com.solbeg.nuserservice.repository.UserRepository;
+
+import by.hembar.idservice.exception.AppException;
+import by.hembar.idservice.mapper.UserMapper;
+import by.hembar.idservice.entity.User;
+import by.hembar.idservice.entity.UserArchive;
+import by.hembar.idservice.model.UserArchiveResponse;
+import by.hembar.idservice.repository.UserArchiveRepository;
+import by.hembar.idservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

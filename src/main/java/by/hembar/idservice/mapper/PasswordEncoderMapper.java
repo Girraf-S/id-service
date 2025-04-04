@@ -1,6 +1,6 @@
 package by.hembar.idservice.mapper;
 
-import com.solbeg.nuserservice.entity.Role;
+//import com.solbeg.nuserservice.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Named;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,8 +20,9 @@ public class PasswordEncoderMapper {
         return passwordEncoder.encode(password);
     }
 
-    @Named(value = "getAuthorities")
-    public Set<String> getAuthorities(Role role) {
-        return role.getAuthorities().stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.toSet());
-    }
+//    @Named(value = "getAuthorities")
+//    public Set<String> getAuthorities(Long userId) {
+//
+//        //return role.getAuthorities().stream().map(SimpleGrantedAuthority::getAuthority).collect(Collectors.toSet());
+//    }
 }

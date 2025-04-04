@@ -12,7 +12,7 @@ import java.util.List;
 public class PropertiesBean extends Properties {
     protected PropertiesBean(@Value("${host:localhost}")
                              String host,
-                             @Value("${port:8080}")
+                             @Value("${server.port:8080}")
                              Integer port,
                              @Value("${host.id-service:}")
                              String idServiceHost,
@@ -42,11 +42,11 @@ public class PropertiesBean extends Properties {
                              Long jwtLifeTime,
                              @Value("${user.block.time:}")
                              Long userBlockTime,
-                             @Value("${user.admin.key:")
+                             @Value("${user.admin.key:adOpd}")
                              String adminKey,
-                             @Value("${user.admin.id-list:")
+                             @Value("${user.admin.id-list:}")
                              String adminIdList,
-                             @Value("${session.extended.max:1")
+                             @Value("${session.extended.max:1}")
                              Integer maxExtendedSessionTimes
     ) {
         super(host, port,

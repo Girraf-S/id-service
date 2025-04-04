@@ -11,4 +11,8 @@ public class DefaultResponse {
     private String errorTittle;
     private String errorDescription;
     private int errorCode;
+
+    public DefaultResponse(int errorCode) {
+        this.errorCode = errorCode;
+    }
 }

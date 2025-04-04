@@ -1,13 +1,13 @@
 package by.hembar.idservice.service;
 
 import by.hembar.idservice.model.DefaultResponse;
-import com.solbeg.nuserservice.entity.Role;
-import com.solbeg.nuserservice.entity.User;
-import com.solbeg.nuserservice.mapper.UserMapper;
-import com.solbeg.nuserservice.model.LoginRequest;
-import com.solbeg.nuserservice.model.RegisterRequest;
-import com.solbeg.nuserservice.model.TokenResponse;
-import com.solbeg.nuserservice.security.UserDetailsImpl;
+//import by.hembar.idservice.entity.Role
+import by.hembar.idservice.entity.User;
+import by.hembar.idservice.mapper.UserMapper;
+import by.hembar.idservice.model.LoginRequest;
+import by.hembar.idservice.model.RegisterRequest;
+import by.hembar.idservice.model.TokenResponse;
+import by.hembar.idservice.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,13 +23,13 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
-    private final MailSenderService mailSenderService;
+    //private final MailSenderService mailSenderService;
 
     @Transactional(readOnly = true)
     public DefaultResponse login(LoginRequest loginRequest) {
         final Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
+                        loginRequest.getLogin(),
                         loginRequest.getPassword()
                 )
         );
@@ -38,22 +38,33 @@ public class AuthService {
         return jwtService.generateToken(userDetails.getUser());
     }
 
-    @Transactional
-    public void subscriberRegistration(RegisterRequest registerRequest) {
-        registerUser(registerRequest, Role.SUBSCRIBER, true);
-    }
+//    @Transactional
+//    public void subscriberRegistration(RegisterRequest registerRequest) {
+//        registerUser(registerRequest, Role.SUBSCRIBER, true);
+//    }
+//
+//    @Transactional
+//    public void journalistRegistration(RegisterRequest registerRequest) {
+//        User user = registerUser(registerRequest, Role.JOURNALIST, false);
+//
+//        mailSenderService.sendUserInfoToAdmin(user);
+//    }
 
     @Transactional
-    public void journalistRegistration(RegisterRequest registerRequest) {
-        User user = registerUser(registerRequest, Role.JOURNALIST, false);
+    public void userRegistration(RegisterRequest registerRequest) {
+        User user = registerUser(registerRequest, true);
 
-        mailSenderService.sendUserInfoToAdmin(user);
+        //mailSenderService.sendUserInfoToAdmin(user);
     }
 
-    private User registerUser(RegisterRequest registerRequest, Role role, boolean active) {
+
+    private User registerUser(RegisterRequest registerRequest, boolean active) {
         checkRegisterData(registerRequest);
 
-        User user = userMapper.registerRequestToUser(registerRequest, role, active);
+        User user = userMapper.registerRequestToUser(registerRequest, active);
+
+        if (user.getLogin() == null || user.getLogin().isEmpty())
+            user.setLogin(registerRequest.getEmail());
 
         userService.save(user);
 

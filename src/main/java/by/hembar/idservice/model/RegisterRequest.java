@@ -14,6 +14,8 @@ public class RegisterRequest {
     @NotNull
     @Email
     private String email;
+    @Pattern(regexp = "^[a-zA-Z0-9-_]{3,20}$|^$")
+    private String login;
     @NotNull
     @Size(min = 4, max = 12)
     @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*[1-9]).*")

@@ -1,7 +1,7 @@
 package by.hembar.idservice.controller;
 
-import com.solbeg.nuserservice.model.UserArchiveResponse;
-import com.solbeg.nuserservice.service.AdminService;
+import by.hembar.idservice.model.UserArchiveResponse;
+import by.hembar.idservice.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

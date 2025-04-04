@@ -5,8 +5,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Data
-@Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,11 +19,12 @@ public class Session {
 
     public Session(String jwt, Session session){
         this.jwt = jwt;
-        this.username = session.getUsername();
+        this.username = session.username;
         this.startSession = LocalDateTime.now();
         this.lastEvent = LocalDateTime.now();
         this.endSession = LocalDateTime.now();
-        this.extendedTimes = session.getExtendedTimes();
-        this.sessionId = session.getSessionId();
+        this.extendedTimes = session.extendedTimes;
+        this.sessionId = session.sessionId;
     }
+
 }

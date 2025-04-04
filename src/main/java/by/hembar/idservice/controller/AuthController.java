@@ -1,7 +1,7 @@
 package by.hembar.idservice.controller;
 
-import com.solbeg.nuserservice.model.*;
-import com.solbeg.nuserservice.service.AuthService;
+import by.hembar.idservice.model.*;
+import by.hembar.idservice.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -20,20 +20,26 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public TokenResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+    public DefaultResponse login(@Valid @RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
 
-    @PostMapping("/registration/subscriber")
-    public ResponseEntity<?> subscriberRegistration(@Valid @RequestBody RegisterRequest registerRequest) {
-        authService.subscriberRegistration(registerRequest);
-        return ResponseEntity.created(URI.create("/account")).build();
-    }
+//    @PostMapping("/registration/subscriber")
+//    public ResponseEntity<?> subscriberRegistration(@Valid @RequestBody RegisterRequest registerRequest) {
+//        authService.subscriberRegistration(registerRequest);
+//        return ResponseEntity.created(URI.create("/account")).build();
+//    }
+//
+//    @PostMapping("/registration/journalist")
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    public void journalistRegistration(@Valid @RequestBody RegisterRequest registerRequest) {
+//            authService.journalistRegistration(registerRequest);
+//    }
 
-    @PostMapping("/registration/journalist")
+    @PostMapping("/registration")
     @ResponseStatus(code = HttpStatus.CREATED)
     public void journalistRegistration(@Valid @RequestBody RegisterRequest registerRequest) {
-            authService.journalistRegistration(registerRequest);
+            authService.userRegistration(registerRequest);
     }
 
     @PostMapping("/logout")

@@ -1,6 +1,7 @@
 package by.hembar.idservice.session;
 
 import by.hembar.idservice.helper.Properties;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -10,18 +11,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Component
 public class SessionStorageMap implements SessionStorage {
 
-    private final ConcurrentHashMap<String, Session> sessionMap = new ConcurrentHashMap<>();//key - jwt
-
-    private static final SessionStorage INSTANCE = new SessionStorageMap();
-
-    private SessionStorageMap() {
-    }
-
-    public static SessionStorage getInstance() {
-        return INSTANCE;
-    }
+    private static final ConcurrentHashMap<String, Session> sessionMap = new ConcurrentHashMap<>();//key - jwt
 
     @Override
     public SessionResponse createSession(String key, String username) {
@@ -84,7 +77,7 @@ public class SessionStorageMap implements SessionStorage {
         if (!sessionMap.containsKey(key)) {
             return SessionResponse.SESSION_NOT_EXIST;
         }
-        return this.sessionMap.get(key).getEndSession().isBefore(LocalDateTime.now())? SessionResponse.OK:SessionResponse.SESSION_EXPIRED;
+        return this.sessionMap.get(key).getEndSession().isBefore(LocalDateTime.now()) ? SessionResponse.OK : SessionResponse.SESSION_EXPIRED;
     }
 
 

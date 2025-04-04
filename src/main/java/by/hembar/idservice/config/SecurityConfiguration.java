@@ -1,7 +1,7 @@
 package by.hembar.idservice.config;
 
-import com.solbeg.nuserservice.exception.ExceptionHandlingFilter;
-import com.solbeg.nuserservice.filter.JwtAuthenticationFilter;
+import by.hembar.idservice.exception.ExceptionHandlingFilter;
+import by.hembar.idservice.filter.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/auth/login","/auth/registration/*")
+                        .requestMatchers("/auth/login","/auth/registration")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

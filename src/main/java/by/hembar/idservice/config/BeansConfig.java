@@ -7,7 +7,6 @@ import by.hembar.idservice.repository.UserRepository;
 import by.hembar.idservice.service.UserDetailsServiceImpl;
 import by.hembar.idservice.session.SessionStorage;
 import by.hembar.idservice.session.SessionStorageMap;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,6 @@ import java.util.List;
 
 @Configuration
 @EnableScheduling
-@RequiredArgsConstructor
 public class BeansConfig {
 
     @Value("${security.encoder.strength}")
@@ -36,12 +34,17 @@ public class BeansConfig {
 
     private final SecurityOptionsRepo securityOptionsRepo;
 
+    public BeansConfig(UserRepository userRepository, SecurityOptionsRepo securityOptionsRepo) {
+        this.userRepository = userRepository;
+        this.securityOptionsRepo = securityOptionsRepo;
+    }
+
     @Bean
     @DependsOn("propertiesBean")
-    public SecurityOptions defaultSecurityOptions(){
+    public SecurityOptions defaultSecurityOptions() {
         List<SecurityOptions> securityOptionsList = securityOptionsRepo.findAllByIsActual(true);
 
-        if(securityOptionsList == null || securityOptionsList.isEmpty()){
+        if (securityOptionsList == null || securityOptionsList.isEmpty()) {
             return SecurityOptions.builder()
                     .jwtLifeTime(Properties.get().JWT_LIFE_TIME)
                     .sessionLifeTime(Properties.get().SESSION_LIFE_TIME)
@@ -51,16 +54,16 @@ public class BeansConfig {
                     .isActual(true)
                     .build();
         }
-        if(securityOptionsList.size() == 1){
+        if (securityOptionsList.size() == 1) {
             return securityOptionsList.get(0);
         }
         return null;
     }
 
-    @Bean
-    public SessionStorage sessionStorage() {
-        return SessionStorageMap.getInstance();
-    }
+//    @Bean
+//    public SessionStorage sessionStorage() {
+//        return SessionStorageMap.getInstance();
+//    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -86,7 +89,7 @@ public class BeansConfig {
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }

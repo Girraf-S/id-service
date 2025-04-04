@@ -1,3 +1,83 @@
 spring:
   application:
     name: id-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: false
+        generate_statistics: false
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/social-network
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
+
+  mail:
+    host: smtp.gmail.com
+    username: hsciapan@gmail.com
+    password: "crzhhhizdfvljrld"
+    admin-mail: hirrafes@gmail.com
+    port: 587
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+          ssl:
+            trust: smtp.gmail.com
+
+
+server:
+  port: 8084
+
+jwt:
+  secret-key: Nikon1234
+  life:
+    time: 3600000
+  bearer: 'Bearer '
+  begin-index: 7
+
+session:
+  life:
+    time: 3600000
+  extended:
+    max: 3
+
+host:
+  id-service: ""
+  chat-service: ""
+  news-service: ""
+  search-service: ""
+  storage-service: ""
+
+port:
+  id-service: 8081
+  chat-service: 8082
+  news-service: 8083
+  search-service: 8084
+  storage-service: 8085
+
+#service:
+#  mail-service:
+#    http://localhost:8083/
+
+user:
+  admin:
+    id-list: 1
+    key: admin
+    activation-code:
+      life-time: 86400
+
+security:
+  encoder:
+    strength: 12

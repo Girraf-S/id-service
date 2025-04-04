@@ -10,14 +10,14 @@ import org.hibernate.annotations.SQLRestriction;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @SQLRestriction("is_active = true")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String login;
 
     @Column(name = "first_name", nullable = false)
@@ -36,6 +36,12 @@ public class User {
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
+
+    @Column(name = "is_email_verified", nullable = false)
+    private boolean isEmailVerified;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private UserRoom userRoom;
 
     public boolean isAdmin() {
         return Properties.get().ADMIN_ID_LIST.contains(id);

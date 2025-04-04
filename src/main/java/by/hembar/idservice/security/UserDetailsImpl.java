@@ -1,11 +1,14 @@
 package by.hembar.idservice.security;
 
-import com.solbeg.nuserservice.entity.User;
+import by.hembar.idservice.entity.User;
+import by.hembar.idservice.helper.Properties;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 public class UserDetailsImpl implements UserDetails {
@@ -18,7 +21,9 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRole().getAuthorities();
+        return Collections.singleton(user.isAdmin() ? new SimpleGrantedAuthority("ROLE_ADMIN") : new SimpleGrantedAuthority("ROLE_USER"));
+        //return Properties.get().ADMIN_ID_LIST.contains(user.getId())
+        //return user.getRole().getAuthorities();
     }
 
     @Override

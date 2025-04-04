@@ -1,7 +1,7 @@
 package by.hembar.idservice.service;
 
-import com.solbeg.nuserservice.exception.AppException;
-import com.solbeg.nuserservice.model.UserArchiveResponse;
+import by.hembar.idservice.exception.AppException;
+import by.hembar.idservice.model.UserArchiveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

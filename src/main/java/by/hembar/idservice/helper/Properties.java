@@ -62,7 +62,7 @@ public class Properties {
     public final Long SESSION_LIFE_TIME;
     public final Long JWT_LIFE_TIME;
     public final Long USER_TIME_IN_BLOCK;
-    public final String ADMIN_KEY;
+    public final String ADMIN_KEY;//проверка роли админа
     public final List<Long> ADMIN_ID_LIST;
     public final Integer MAX_EXTENDED_SESSION_TIMES;
 

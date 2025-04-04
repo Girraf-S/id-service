@@ -27,9 +27,9 @@ public class UserArchive {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+//    @Column(name = "role", nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;

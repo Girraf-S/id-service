@@ -1,6 +1,6 @@
 package by.hembar.idservice.repository;
 
-import com.solbeg.nuserservice.entity.ActivationCode;
+import by.hembar.idservice.entity.ActivationCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
